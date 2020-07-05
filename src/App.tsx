@@ -3,6 +3,7 @@ import "./App.css";
 import Counter from "./components/Counter";
 import GuessedWords from "./components/Jotto/GuessedWords";
 import Congrats from "./components/Jotto/Congrats";
+import Input from "./components/Jotto/Input";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <GuessedWords
         guessedWords={[{ guessedWord: "train", letterMatchCount: 3 }]}
       />
+      <Input />
     </div>
   );
 }
