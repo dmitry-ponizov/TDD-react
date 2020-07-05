@@ -1,0 +1,1 @@
+export const getSecretWord = (state: any) => state.success.secretWord;

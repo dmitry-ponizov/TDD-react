@@ -1,28 +1,25 @@
 import {
   put,
   call,
-  takeEvery,
   all,
   select,
   takeLatest,
 } from "redux-saga/effects";
-import { GUESS_WORD_REQUEST } from "../actions";
+import { GUESS_WORD_REQUEST, guessWordAction, guessWordSuccessAction, guessWordFailureAction } from "../actions";
+import { getLetterMatchCount } from "../helpers";
+import { getSecretWord } from "../selectors/guessedWordSelectors";
 
-const getSecretWord = (state: any) => state.success.secretWord;
-
-export function* guessWordSaga(data: { type: string; params: any }) {
+export function* guessWordSaga(data: { type: string; guessedWord: string }) {
   try {
-    const secretWord = yield select(getSecretWord);
-    // yield put(fetchNewMembersStartAction());
-    // const sessionId = yield select(getSessionIdSelector);
-    // const response = yield call(fetchNewMembersApi, sessionId);
-    // if (Boolean(response.data.length)) {
-    //   yield put(fetchNewMembersSuccessAction(response.data));
-    // } else {
-    //   yield put(fetchNewMembersFailAction(NoNewMembers));
-    // }
+    const secretWord = yield select(getSecretWord)
+
+    yield put(guessWordAction([{ guessedWord: data.guessedWord, letterMatchCount: 3 }]));
+    if(data.guessedWord === secretWord) {
+      yield put(guessWordSuccessAction())
+    }
+
   } catch (e) {
-    // yield put(fetchNewMembersFailAction(ServerError));
+    yield put(guessWordFailureAction(e.message));
   }
 }
 
