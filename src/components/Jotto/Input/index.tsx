@@ -1,13 +1,14 @@
-import * as React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { guessWordRequestAction } from "../../../actions";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 interface IInputProps {}
 
 const Input: React.FunctionComponent<IInputProps> = (props) => {
-  const { success } = useSelector((state: any) => state.success);
-  const dispatch = useDispatch()
-  // console.log(success);
+  const { success, secretWord, guessedWords } = useSelector(
+    (state: any) => state.success
+  );
+  const [currentGuess, setCurrentGuess] = useState<string>("");
+
   return (
     <div data-test="input-component">
       {!success ? (
@@ -17,6 +18,8 @@ const Input: React.FunctionComponent<IInputProps> = (props) => {
             className="mb-2 mx-sm-3"
             type="text"
             placeholder="enter guess"
+            value={currentGuess}
+            onChange={(e) => setCurrentGuess(e.target.value)}
           />
           <button
             type="submit"
@@ -27,7 +30,6 @@ const Input: React.FunctionComponent<IInputProps> = (props) => {
           </button>
         </form>
       ) : null}
-      <button onClick={() => dispatch(guessWordRequestAction('party'))}>Push me</button>
     </div>
   );
 };

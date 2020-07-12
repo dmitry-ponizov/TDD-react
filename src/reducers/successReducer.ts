@@ -3,7 +3,7 @@ export const initialState = {
   success: false,
   error: "",
   guessedWords: [],
-  secretWord: "party",
+  secretWord: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -15,6 +15,16 @@ export default (state = initialState, action: any) => {
     case "GUESS_WORD":
       return { ...state, loading: false, guessedWords: action.payload };
     case "GUESS_WORD_FAILURE":
+      return { ...state, loading: false, error: action.payload };
+    case "SET_SECRET_WORD_REQUEST":
+      return { ...state, loading: true, secretWord: "" };
+    case "SET_SECRET_WORD_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        secretWord: action.payload,
+      };
+    case "SET_SECRET_WORD_FAILURE":
       return { ...state, loading: false, error: action.payload };
     default:
       return state;

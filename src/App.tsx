@@ -10,12 +10,14 @@ function App() {
     <div data-test="app-component" className="container">
       <h2>Counter</h2>
       <Counter />
-      <h2>Jotto</h2>
-      <Congrats success={true} />
-      <GuessedWords
-        guessedWords={[{ guessedWord: "train", letterMatchCount: 3 }]}
-      />
-      <Input />
+      <div className="container">
+        <h2>Jotto</h2>
+        <Congrats />
+        <Input />
+        <GuessedWords
+          guessedWords={[{ guessedWord: "train", letterMatchCount: 3 }]}
+        />
+      </div>
     </div>
   );
 }

@@ -29,6 +29,7 @@ describe("render", () => {
       const component = findByTestAttr(wrapper, "input-component");
       expect(component.length).toEqual(1);
     });
+
     it("renders input box", () => {
       const inputBox = findByTestAttr(wrapper, "input-box");
       expect(inputBox.length).toEqual(1);
@@ -62,4 +63,22 @@ describe("render", () => {
   });
 });
 
-describe("update state", () => {});
+describe("state controlled input field", () => {
+  let wrapper: any;
+  beforeEach(() => {
+    const initialState = {
+      success: { success: false },
+    };
+    wrapper = setup(initialState);
+  });
+
+  it("state updates with value of input box upon change", () => {
+    const inputBox = findByTestAttr(wrapper, "input-box");
+
+    const mockEvent = { target: { value: "train" } };
+
+    inputBox.simulate("change", mockEvent);
+
+    expect(inputBox.instance().value).toEqual("train");
+  });
+});

@@ -1,12 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const Congrats: React.FC<{ success: boolean }> = ({ success }) => {
+const Congrats = () => {
+  const { success } = useSelector((state: any) => state.success);
   return (
-    <div data-test="congrats-component" className="alert alert-success">
+    <div data-test="congrats-component">
       {success ? (
-        <span data-test="congrats-message">
-          Congratulations! You guessed the word!
-        </span>
+        <div className="alert alert-success">
+          <span data-test="congrats-message">
+            Congratulations! You guessed the word!
+          </span>
+        </div>
       ) : (
         ""
       )}

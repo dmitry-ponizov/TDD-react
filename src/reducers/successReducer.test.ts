@@ -3,6 +3,9 @@ import {
   GUESS_WORD_SUCCESS,
   GUESS_WORD_FAILURE,
   GUESS_WORD,
+  SET_SECRET_WORD_REQUEST,
+  SET_SECRET_WORD_SUCCESS,
+  SET_SECRET_WORD_FAILURE,
 } from "../actions";
 import successReducer from "./";
 
@@ -13,7 +16,7 @@ test("return default initial state", () => {
     success: false,
     error: "",
     guessedWords: [],
-    secretWord: "party",
+    secretWord: "",
   });
 });
 
@@ -24,7 +27,7 @@ test("return state upon receiving an action type 'GUESS_WORD_REQUEST'", () => {
     success: false,
     error: "",
     guessedWords: [],
-    secretWord: "party",
+    secretWord: "",
   });
 });
 
@@ -35,7 +38,7 @@ test("return state upon receiving an action type 'GUESS_WORD_SUCCESS'", () => {
     success: true,
     error: "",
     guessedWords: [],
-    secretWord: "party",
+    secretWord: "",
   });
 });
 
@@ -49,7 +52,7 @@ test("return state true upon receiving an action type 'GUESS_WORD_FAILURE'", () 
     success: false,
     error: "some",
     guessedWords: [],
-    secretWord: "party",
+    secretWord: "",
   });
 });
 
@@ -64,6 +67,53 @@ test("return state upon receiving an action type 'GUESS_WORD'", () => {
     success: false,
     error: "",
     guessedWords,
-    secretWord: "party",
+    secretWord: "",
+  });
+});
+
+describe("secret word", () => {
+  test("return state upon receiving an action type SECRET_WORD_REQUEST", () => {
+    const { success } = successReducer(undefined, {
+      type: SET_SECRET_WORD_REQUEST,
+    });
+    expect(success).toEqual({
+      guessedWords: [],
+      loading: true,
+      error: "",
+      secretWord: "",
+      success: false,
+    });
+  });
+
+  test("return state upon receiving an action type SECRET_WORD_SUCCESS", () => {
+    const secretWord = "party";
+    const { success } = successReducer(undefined, {
+      type: SET_SECRET_WORD_SUCCESS,
+      payload: secretWord,
+    });
+
+    expect(success).toEqual({
+      guessedWords: [],
+      loading: false,
+      error: "",
+      secretWord,
+      success: false,
+    });
+  });
+
+  test("return state upon receiving an action type SECRET_WORD_FAILURE", () => {
+    const error = "some error";
+    const { success } = successReducer(undefined, {
+      type: SET_SECRET_WORD_FAILURE,
+      payload: error,
+    });
+
+    expect(success).toEqual({
+      guessedWords: [],
+      loading: false,
+      error: error,
+      secretWord: "",
+      success: false,
+    });
   });
 });
